@@ -1,0 +1,95 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Claude PR Review
+#
+# EXAM CONCEPT — Direct Anthropic API integration in CI/CD
+# This workflow demonstrates Pattern A: calling the Anthropic API directly
+# from a Python script inside a GitHub Actions workflow.
+#
+# KEY EXAM CONCEPTS IN THIS FILE:
+#
+#   1. SECRETS MANAGEMENT
+#      ANTHROPIC_API_KEY lives in GitHub Secrets — never hardcoded.
+#      GITHUB_TOKEN is automatically provisioned by GitHub for every run.
+#
+#   2. LEAST-PRIVILEGE PERMISSIONS
+#      The `permissions:` block is scoped to only what this job needs.
+#      pull-requests: write  → post review comments
+#      contents: read        → checkout the repo
+#      Everything else is implicitly denied.
+#
+#   3. FETCH-DEPTH: 0
+#      By default actions/checkout only fetches the latest commit (depth 1).
+#      git diff needs the base branch history to compute what changed.
+#      fetch-depth: 0 fetches everything.
+#
+#   4. CONDITIONAL STEP EXECUTION
+#      The review step only runs if the diff is > 100 bytes.
+#      This prevents wasting API tokens on trivial changes (e.g., .gitignore).
+#
+#   5. PULL_REQUEST vs PULL_REQUEST_TARGET
+#      This workflow uses `pull_request` (not `pull_request_target`).
+#      `pull_request` is safe for public repos: forks cannot access secrets.
+#      `pull_request_target` runs with write access but is a security risk
+#      for public repos — never put untrusted code in pull_request_target steps.
+# ─────────────────────────────────────────────────────────────────────────────
+name: Claude PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# EXAM CONCEPT — Concurrency Control
+# If a new commit is pushed while a review is in progress, cancel the old run.
+# This prevents stale reviews from posting after a newer commit already fixed issues.
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Claude Code Review
+    runs-on: ubuntu-latest
+
+    # EXAM CONCEPT — Least-privilege permissions
+    permissions:
+      pull-requests: write   # post PR comments
+      contents: read         # checkout the repo
+
+    steps:
+      # ── Step 1: Checkout with full history ─────────────────────────────────
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # needed for git diff against base branch
+
+      # ── Step 2: Compute the Java diff ──────────────────────────────────────
+      - name: Compute diff of changed Java files
+        id: diff
+        run: |
+          git diff "origin/${{ github.base_ref }}...HEAD" \
+            -- '*.java' \
+            > /tmp/pr_diff.txt
+
+          DIFF_SIZE=$(wc -c < /tmp/pr_diff.txt)
+          echo "diff_size=${DIFF_SIZE}" >> "$GITHUB_OUTPUT"
+          echo "Diff size: ${DIFF_SIZE} bytes"
+
+      # ── Step 3: Run Claude review ───────────────────────────────────────────
+      # EXAM CONCEPT — Conditional step: skip if diff is trivially small
+      - name: Run Claude code review
+        if: ${{ fromJSON(steps.diff.outputs.diff_size) > 100 }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          pip install anthropic --quiet
+          python scripts/claude_review.py \
+            --diff /tmp/pr_diff.txt \
+            --post-comment
+
+      # ── Step 4: Skip notice ─────────────────────────────────────────────────
+      - name: Skip notice (diff too small)
+        if: ${{ fromJSON(steps.diff.outputs.diff_size) <= 100 }}
+        run: echo "Diff is ${DIFF_SIZE} bytes — skipping Claude review (threshold: 100 bytes)"

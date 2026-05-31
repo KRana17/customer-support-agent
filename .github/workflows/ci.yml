@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# CI — Build & Test
+#
+# EXAM CONCEPT — CI as a Gate Before Claude
+# This workflow runs on every push and pull_request to verify the code compiles
+# and all tests pass BEFORE the Claude review workflow runs.
+# Claude reviewing broken code wastes tokens and produces misleading feedback.
+#
+# EXAM NOTE — Dual Build Strategy
+# Both Maven AND Gradle are verified in parallel (matrix strategy).
+# This proves the project works with either build tool — important for teams
+# that haven't standardized on one tool yet.
+# ─────────────────────────────────────────────────────────────────────────────
+name: CI — Build & Test
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  build:
+    name: Build & Test (${{ matrix.tool }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      # EXAM NOTE: matrix.fail-fast=false means both builds run even if one fails.
+      # This gives you full visibility into which build tool(s) have issues.
+      fail-fast: false
+      matrix:
+        tool: [maven, gradle]
+
+    steps:
+      # ── Step 1: Checkout ───────────────────────────────────────────────────
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # ── Step 2: Set up Java 21 ─────────────────────────────────────────────
+      # EXAM NOTE: actions/setup-java with 'temurin' distribution installs
+      # Eclipse Temurin (formerly AdoptOpenJDK) — the most common choice in CI.
+      # The java-version must match the toolchain in pom.xml / build.gradle.kts.
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: ${{ matrix.tool }}    # caches ~/.m2 or ~/.gradle automatically
+
+      # ── Step 3a: Build with Maven ──────────────────────────────────────────
+      - name: Build & test (Maven)
+        if: matrix.tool == 'maven'
+        run: mvn -q clean compile test
+        # -q suppresses verbose Maven output; errors still surface
+
+      # ── Step 3b: Build with Gradle ─────────────────────────────────────────
+      - name: Build & test (Gradle)
+        if: matrix.tool == 'gradle'
+        run: ./gradlew compileJava test --no-daemon
+        # --no-daemon prevents the Gradle daemon from persisting between CI runs
+        # (ephemeral runners don't benefit from the daemon)

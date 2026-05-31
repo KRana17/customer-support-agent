@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'com.example.support.runner.SupportAgentRunner'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def anthropicVersion = '2.32.0'
+def poiVersion       = '5.3.0'
+def jacksonVersion   = '2.17.1'
+def slf4jVersion     = '2.0.13'
+def logbackVersion   = '1.5.6'
+
+dependencies {
+    // Anthropic Java SDK
+    implementation "com.anthropic:anthropic-java:$anthropicVersion"
+
+    // Apache POI — reads mock-data.xlsx (poi-ooxml pulls in poi core transitively)
+    implementation "org.apache.poi:poi-ooxml:$poiVersion"
+
+    // Jackson (Anthropic SDK needs it; POI uses it too)
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
+    // Logging
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testImplementation 'org.mockito:mockito-core:5.12.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.12.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+// `./gradlew run` reads ANTHROPIC_API_KEY from the environment automatically.
+// To pass it explicitly: ./gradlew run -Danthropic.api.key=sk-ant-...
+tasks.named('run') {
+    standardInput = System.in
+}

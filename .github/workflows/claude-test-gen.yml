@@ -1,0 +1,80 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Claude Test Suggestions
+#
+# EXAM CONCEPT — GITHUB_STEP_SUMMARY
+# This workflow posts Claude's test suggestions to the GitHub Actions
+# "Summary" tab instead of as a PR comment.
+# Writing to $GITHUB_STEP_SUMMARY requires NO extra permissions — it's a
+# file path provided by the runner. This is ideal for informational output
+# that doesn't need to modify the PR itself.
+#
+# EXAM CONCEPT — Path Filtering
+# The `paths:` filter means this workflow ONLY runs when Java source files
+# change. Docs-only PRs, README updates, and config changes skip it entirely.
+# This is an important cost-control pattern for API-backed CI steps.
+#
+# EXAM CONCEPT — Single-turn vs Multi-turn in Automation
+# Test generation is a single-turn task: one prompt → one structured response.
+# No tool-use loop is needed here. Compare this to SubAgent.java which uses
+# a full agentic loop — use the simplest pattern that achieves the goal.
+# ─────────────────────────────────────────────────────────────────────────────
+name: Claude Test Suggestions
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'src/main/java/**/*.java'   # only Java source changes trigger this
+
+concurrency:
+  group: claude-test-gen-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  suggest-tests:
+    name: Suggest JUnit Tests
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read   # only need to read the repo — no PR write needed
+
+    steps:
+      # ── Step 1: Checkout with full history ─────────────────────────────────
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── Step 2: Find changed Java files ────────────────────────────────────
+      - name: Find changed Java source files
+        id: changed
+        run: |
+          git diff --name-only "origin/${{ github.base_ref }}...HEAD" \
+            -- 'src/main/java/**/*.java' \
+            > /tmp/changed_files.txt
+
+          COUNT=$(wc -l < /tmp/changed_files.txt)
+          echo "changed_count=${COUNT}" >> "$GITHUB_OUTPUT"
+          echo "Changed Java files (${COUNT}):"
+          cat /tmp/changed_files.txt
+
+      # ── Step 3: Ask Claude for test suggestions ─────────────────────────────
+      - name: Generate test suggestions
+        if: ${{ fromJSON(steps.changed.outputs.changed_count) > 0 }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          pip install anthropic --quiet
+
+          # EXAM CONCEPT — GITHUB_STEP_SUMMARY
+          # Anything written to this path appears as formatted markdown
+          # in the Actions run Summary tab. No permissions needed.
+          python scripts/claude_review.py \
+            --mode test-gen \
+            --files /tmp/changed_files.txt \
+            >> "$GITHUB_STEP_SUMMARY"
+
+      # ── Step 4: No-op if nothing changed ────────────────────────────────────
+      - name: No Java changes detected
+        if: ${{ fromJSON(steps.changed.outputs.changed_count) == 0 }}
+        run: echo "No Java source files changed — skipping test generation"

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.example.support.mcp.MCPToolExecutorTest" time="0.477" tests="18" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/rajrana/customer-support-agent/target/test-classes:/Users/rajrana/customer-support-agent/target/classes:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java/2.32.0/anthropic-java-2.32.0.jar:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java-client-okhttp/2.32.0/anthropic-java-client-okhttp-2.32.0.jar:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java-core/2.32.0/anthropic-java-core-2.32.0.jar:/Users/rajrana/.m2/repository/com/google/errorprone/error_prone_annotations/2.33.0/error_prone_annotations-2.33.0.jar:/Users/rajrana/.m2/repository/com/standardwebhooks/standardwebhooks/1.1.0/standardwebhooks-1.1.0.jar:/Users/rajrana/.m2/repository/io/swagger/core/v3/swagger-annotations/2.2.31/swagger-annotations-2.2.31.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.18.2/jackson-datatype-jdk8-2.18.2.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.18.2/jackson-datatype-jsr310-2.18.2.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/module/jackson-module-kotlin/2.18.2/jackson-module-kotlin-2.18.2.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-reflect/1.8.10/kotlin-reflect-1.8.10.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.2.4/httpcore5-5.2.4.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.3.1/httpclient5-5.3.1.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.2.4/httpcore5-h2-5.2.4.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-generator/4.38.0/jsonschema-generator-4.38.0.jar:/Users/rajrana/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-module-jackson/4.38.0/jsonschema-module-jackson-4.38.0.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-module-swagger-2/4.38.0/jsonschema-module-swagger-2-4.38.0.jar:/Users/rajrana/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/rajrana/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/rajrana/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0/kotlin-stdlib-jdk8-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0/kotlin-stdlib-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0/kotlin-stdlib-common-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0/kotlin-stdlib-jdk7-1.8.0.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi-ooxml/5.3.0/poi-ooxml-5.3.0.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi/5.3.0/poi-5.3.0.jar:/Users/rajrana/.m2/repository/commons-codec/commons-codec/1.17.0/commons-codec-1.17.0.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/rajrana/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi-ooxml-lite/5.3.0/poi-ooxml-lite-5.3.0.jar:/Users/rajrana/.m2/repository/org/apache/xmlbeans/xmlbeans/5.2.1/xmlbeans-5.2.1.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar:/Users/rajrana/.m2/repository/commons-io/commons-io/2.16.1/commons-io-2.16.1.jar:/Users/rajrana/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/rajrana/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.1/jackson-databind-2.17.1.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.1/jackson-core-2.17.1.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.1/jackson-annotations-2.17.1.jar:/Users/rajrana/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/rajrana/.m2/repository/ch/qos/logback/logback-classic/1.5.6/logback-classic-1.5.6.jar:/Users/rajrana/.m2/repository/ch/qos/logback/logback-core/1.5.6/logback-core-1.5.6.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/rajrana/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/rajrana/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/rajrana/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/rajrana/.m2/repository/org/mockito/mockito-core/5.12.0/mockito-core-5.12.0.jar:/Users/rajrana/.m2/repository/net/bytebuddy/byte-buddy/1.14.15/byte-buddy-1.14.15.jar:/Users/rajrana/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.15/byte-buddy-agent-1.14.15.jar:/Users/rajrana/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/rajrana/.m2/repository/org/mockito/mockito-junit-jupiter/5.12.0/mockito-junit-jupiter-5.12.0.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="America/Halifax"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CA"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/rajrana/customer-support-agent/target/surefire/surefirebooter-20260530210052132_3.jar /Users/rajrana/customer-support-agent/target/surefire 2026-05-30T21-00-52_101-jvmRun1 surefire-20260530210052132_1tmp surefire_0-20260530210052132_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/rajrana/customer-support-agent/target/test-classes:/Users/rajrana/customer-support-agent/target/classes:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java/2.32.0/anthropic-java-2.32.0.jar:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java-client-okhttp/2.32.0/anthropic-java-client-okhttp-2.32.0.jar:/Users/rajrana/.m2/repository/com/anthropic/anthropic-java-core/2.32.0/anthropic-java-core-2.32.0.jar:/Users/rajrana/.m2/repository/com/google/errorprone/error_prone_annotations/2.33.0/error_prone_annotations-2.33.0.jar:/Users/rajrana/.m2/repository/com/standardwebhooks/standardwebhooks/1.1.0/standardwebhooks-1.1.0.jar:/Users/rajrana/.m2/repository/io/swagger/core/v3/swagger-annotations/2.2.31/swagger-annotations-2.2.31.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.18.2/jackson-datatype-jdk8-2.18.2.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.18.2/jackson-datatype-jsr310-2.18.2.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/module/jackson-module-kotlin/2.18.2/jackson-module-kotlin-2.18.2.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-reflect/1.8.10/kotlin-reflect-1.8.10.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.2.4/httpcore5-5.2.4.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.3.1/httpclient5-5.3.1.jar:/Users/rajrana/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.2.4/httpcore5-h2-5.2.4.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-generator/4.38.0/jsonschema-generator-4.38.0.jar:/Users/rajrana/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-module-jackson/4.38.0/jsonschema-module-jackson-4.38.0.jar:/Users/rajrana/.m2/repository/com/github/victools/jsonschema-module-swagger-2/4.38.0/jsonschema-module-swagger-2-4.38.0.jar:/Users/rajrana/.m2/repository/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar:/Users/rajrana/.m2/repository/com/squareup/okio/okio/3.6.0/okio-3.6.0.jar:/Users/rajrana/.m2/repository/com/squareup/okio/okio-jvm/3.6.0/okio-jvm-3.6.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0/kotlin-stdlib-jdk8-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0/kotlin-stdlib-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0/kotlin-stdlib-common-1.8.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/rajrana/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0/kotlin-stdlib-jdk7-1.8.0.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi-ooxml/5.3.0/poi-ooxml-5.3.0.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi/5.3.0/poi-5.3.0.jar:/Users/rajrana/.m2/repository/commons-codec/commons-codec/1.17.0/commons-codec-1.17.0.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/rajrana/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/rajrana/.m2/repository/org/apache/poi/poi-ooxml-lite/5.3.0/poi-ooxml-lite-5.3.0.jar:/Users/rajrana/.m2/repository/org/apache/xmlbeans/xmlbeans/5.2.1/xmlbeans-5.2.1.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar:/Users/rajrana/.m2/repository/commons-io/commons-io/2.16.1/commons-io-2.16.1.jar:/Users/rajrana/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/rajrana/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/rajrana/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.1/jackson-databind-2.17.1.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.1/jackson-core-2.17.1.jar:/Users/rajrana/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.1/jackson-annotations-2.17.1.jar:/Users/rajrana/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/rajrana/.m2/repository/ch/qos/logback/logback-classic/1.5.6/logback-classic-1.5.6.jar:/Users/rajrana/.m2/repository/ch/qos/logback/logback-core/1.5.6/logback-core-1.5.6.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/rajrana/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/rajrana/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/rajrana/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/rajrana/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/rajrana/.m2/repository/org/mockito/mockito-core/5.12.0/mockito-core-5.12.0.jar:/Users/rajrana/.m2/repository/net/bytebuddy/byte-buddy/1.14.15/byte-buddy-1.14.15.jar:/Users/rajrana/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.15/byte-buddy-agent-1.14.15.jar:/Users/rajrana/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/rajrana/.m2/repository/org/mockito/mockito-junit-jupiter/5.12.0/mockito-junit-jupiter-5.12.0.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/rajrana"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/rajrana/customer-support-agent"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/rajrana/customer-support-agent/target/surefire/surefirebooter-20260530210052132_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="rajrana"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.2"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/rajrana/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/tp/_pjfz2wd77d50q9_rdt832980000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/rajrana/customer-support-agent"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/rajrana/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="lookupOrderIsCaseInsensitive" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.251">
+    <system-out><![CDATA[2026-05-31T00:00:52.588959Z main ERROR Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...
+21:00:52.768 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.769 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input={"order_id": "ord-77291"}
+21:00:52.776 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='lookup_order' result={"order_id":"ORD-77291","customer_id":"CUST-002","status":"SHIPPED","tracking_number":"TRK-88291-CA","estimated_delivery":"2026-06-05","total_amount":149.99,"refund_eligible":true}
+21:00:52.776 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input={"order_id": "ORD-77291"}
+21:00:52.776 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='lookup_order' result={"order_id":"ORD-77291","customer_id":"CUST-002","status":"SHIPPED","tracking_number":"TRK-88291-CA","estimated_delivery":"2026-06-05","total_amount":149.99,"refund_eligible":true}
+]]></system-out>
+  </testcase>
+  <testcase name="runDiagnosticReturnsDataForKnownUser" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.017">
+    <system-out><![CDATA[21:00:52.793 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.793 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='run_diagnostic' input={"user_id": "CUST-001"}
+21:00:52.794 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='run_diagnostic' result={"user_id":"CUST-001","account_status":"ACTIVE","last_login":"2026-05-29T10:00:00Z","connectivity_test":"PASS","known_incidents":false,"incident_description":""}
+]]></system-out>
+  </testcase>
+  <testcase name="initiateRefundFailsForUnknownOrder" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.014">
+    <system-out><![CDATA[21:00:52.807 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.808 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='initiate_refund' input={"order_id": "ORD-GHOST"}
+21:00:52.808 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='initiate_refund' result={"error":"Cannot initiate refund — order not found: ORD-GHOST"}
+]]></system-out>
+  </testcase>
+  <testcase name="initiateRefundFailsForIneligibleOrder" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.012">
+    <system-out><![CDATA[21:00:52.820 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.820 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='initiate_refund' input={"order_id": "ORD-55100"}
+21:00:52.820 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='initiate_refund' result={"error":"Cannot initiate refund — order ORD-55100 has refund_eligible=false (status: DELIVERED)"}
+]]></system-out>
+  </testcase>
+  <testcase name="searchKnowledgeBaseReturnsLowConfidenceForUnknownQuery" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.01">
+    <system-out><![CDATA[21:00:52.830 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.831 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='search_knowledge_base' input={"query": "zzz completely unrelated gibberish xyz123"}
+21:00:52.831 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='search_knowledge_base' result={"query":"zzz completely unrelated gibberish xyz123","top_result":"No matching knowledge base entry found for this query.","confidence":0.3,"suggestion":"Try rephrasing the query or check KnowledgeBase sheet for available topics."}
+]]></system-out>
+  </testcase>
+  <testcase name="constructorLoadsDataFromExcel" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.019">
+    <system-out><![CDATA[21:00:52.841 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.851 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+]]></system-out>
+  </testcase>
+  <testcase name="unknownToolReturnsErrorJson" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.009">
+    <system-out><![CDATA[21:00:52.859 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.860 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='nonexistent_tool' input={}
+21:00:52.860 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='nonexistent_tool' result={"error":"Unknown tool: nonexistent_tool. Check MCPToolRegistry for registered tool names."}
+]]></system-out>
+  </testcase>
+  <testcase name="runDiagnosticReturnsFlagsForProblematicUser" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.009">
+    <system-out><![CDATA[21:00:52.868 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.869 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='run_diagnostic' input={"user_id": "CUST-003"}
+21:00:52.869 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='run_diagnostic' result={"user_id":"CUST-003","account_status":"ACTIVE","last_login":"2026-05-27T09:12:00Z","connectivity_test":"FAIL","known_incidents":true,"incident_description":"App crash on checkout screen — mobile app v2.4.1 known issue, fix in v2.4.2 (ETA 2026-06-01)"}
+]]></system-out>
+  </testcase>
+  <testcase name="missingRequiredFieldFallsBackGracefully" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.007">
+    <system-out><![CDATA[21:00:52.876 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.876 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input={}
+21:00:52.876 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='lookup_order' result={"error":"order not found: ","hint":"Tip: Check the Orders sheet in mock-data.xlsx for valid order IDs"}
+]]></system-out>
+  </testcase>
+  <testcase name="malformedInputJsonReturnsErrorGracefully" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.007">
+    <system-out><![CDATA[21:00:52.883 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.883 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input=not-valid-json{{{
+21:00:52.884 [main] ERROR c.e.s.mcp.MCPToolExecutor — MCP tool execution failed for 'lookup_order': Unrecognized token 'not': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 4]
+]]></system-out>
+  </testcase>
+  <testcase name="runDiagnosticReturnsErrorForUnknownUser" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.007">
+    <system-out><![CDATA[21:00:52.891 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.891 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='run_diagnostic' input={"user_id": "CUST-GHOST"}
+21:00:52.891 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='run_diagnostic' result={"error":"user not found: CUST-GHOST","hint":"Tip: Check the Diagnostics sheet in mock-data.xlsx for valid user IDs"}
+]]></system-out>
+  </testcase>
+  <testcase name="lookupOrderReturnsErrorForUnknownOrder" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.007">
+    <system-out><![CDATA[21:00:52.898 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.898 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input={"order_id": "ORD-NOTEXIST"}
+21:00:52.898 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='lookup_order' result={"error":"order not found: ORD-NOTEXIST","hint":"Tip: Check the Orders sheet in mock-data.xlsx for valid order IDs"}
+]]></system-out>
+  </testcase>
+  <testcase name="searchKnowledgeBaseFindsReturnPolicy" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.008">
+    <system-out><![CDATA[21:00:52.906 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.906 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='search_knowledge_base' input={"query": "what is the return policy how many days"}
+21:00:52.907 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='search_knowledge_base' result={"topic":"return-policy","keywords":"return,refund,policy,days,how many,can i return","answer":"Items can be returned within 30 days of delivery for a full refund. Items must be unused and in original packaging. Digital products and perishables are non-refundable.","source_url":"https://help.yourstore.com/returns","confidence":0.95,"query":"what is the return policy how many days","match_score":4}
+]]></system-out>
+  </testcase>
+  <testcase name="initiateRefundSucceedsForEligibleOrder" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.013">
+    <system-out><![CDATA[21:00:52.918 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.919 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='initiate_refund' input={"order_id": "ORD-77291"}
+21:00:52.919 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='initiate_refund' result={"refund_id":"REF-1780185652919","order_id":"ORD-77291","status":"INITIATED","estimated_credit_days":3,"message":"Refund initiated successfully. Credit will appear in 3 business days."}
+]]></system-out>
+  </testcase>
+  <testcase name="createTicketGeneratesUniqueIds" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.009">
+    <system-out><![CDATA[21:00:52.928 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.928 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='create_ticket' input={"summary": "Issue 1", "priority": "LOW"}
+21:00:52.928 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='create_ticket' result={"ticket_id":"TKT-96878","summary":"Issue 1","priority":"LOW","status":"OPEN","assigned_queue":"TIER_2_SUPPORT","message":"Ticket created. A tier-2 agent will follow up within 24 hours."}
+21:00:52.928 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='create_ticket' input={"summary": "Issue 2", "priority": "LOW"}
+21:00:52.928 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='create_ticket' result={"ticket_id":"TKT-62192","summary":"Issue 2","priority":"LOW","status":"OPEN","assigned_queue":"TIER_2_SUPPORT","message":"Ticket created. A tier-2 agent will follow up within 24 hours."}
+]]></system-out>
+  </testcase>
+  <testcase name="createTicketAlwaysSucceeds" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.006">
+    <system-out><![CDATA[21:00:52.934 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.934 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='create_ticket' input={"summary": "App crashes on checkout", "priority": "HIGH"}
+21:00:52.934 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='create_ticket' result={"ticket_id":"TKT-11464","summary":"App crashes on checkout","priority":"HIGH","status":"OPEN","assigned_queue":"TIER_2_SUPPORT","message":"Ticket created. A tier-2 agent will follow up within 24 hours."}
+]]></system-out>
+  </testcase>
+  <testcase name="searchKnowledgeBaseIncludesQueryInResponse" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.005">
+    <system-out><![CDATA[21:00:52.940 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.940 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='search_knowledge_base' input={"query": "shipping time"}
+21:00:52.940 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='search_knowledge_base' result={"topic":"shipping-times","keywords":"shipping,delivery,how long,when,arrive,standard,express","answer":"Standard shipping takes 5-7 business days. Express shipping takes 1-2 business days. Free standard shipping on orders over $50.","source_url":"https://help.yourstore.com/shipping","confidence":0.92,"query":"shipping time","match_score":1}
+]]></system-out>
+  </testcase>
+  <testcase name="lookupOrderReturnsDataForKnownOrder" classname="com.example.support.mcp.MCPToolExecutorTest" time="0.006">
+    <system-out><![CDATA[21:00:52.945 [main] INFO  c.e.s.mcp.MCPToolExecutor — Mock data loaded — orders=5 knowledgeBase=6 diagnostics=5
+21:00:52.946 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP dispatch → tool='lookup_order' input={"order_id": "ORD-77291"}
+21:00:52.946 [main] DEBUG c.e.s.mcp.MCPToolExecutor — MCP result ← tool='lookup_order' result={"order_id":"ORD-77291","customer_id":"CUST-002","status":"SHIPPED","tracking_number":"TRK-88291-CA","estimated_delivery":"2026-06-05","total_amount":149.99,"refund_eligible":true}
+]]></system-out>
+  </testcase>
+</testsuite>

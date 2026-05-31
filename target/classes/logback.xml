@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--
+        EXAM NOTE — Logging Configuration Strategy:
+        ─────────────────────────────────────────────
+        We show DEBUG for our own code (com.example.support) so you can
+        watch the tool-use loop rounds in real time:
+            [FAQ] API call round 1
+            [FAQ] stop_reason=tool_use
+            [FAQ] API call round 2
+            [FAQ] stop_reason=end_turn
+            [FAQ] Resolved — confidence=0.88
+
+        All third-party libraries (SDK, OkHttp, POI) are suppressed to WARN
+        so their internal HTTP chatter doesn't drown out the agent logic.
+    -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} — %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Our agent code — show DEBUG so tool-use loop rounds are visible -->
+    <logger name="com.example.support" level="DEBUG"/>
+
+    <!-- Suppress noisy third-party internals -->
+    <logger name="com.anthropic"             level="WARN"/>
+    <logger name="okhttp3"                   level="WARN"/>
+    <logger name="org.apache.poi"            level="WARN"/>
+    <logger name="org.apache.xmlbeans"       level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
