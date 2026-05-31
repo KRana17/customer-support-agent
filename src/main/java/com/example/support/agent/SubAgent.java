@@ -7,6 +7,7 @@ import com.example.support.mcp.MCPToolRegistry;
 import com.example.support.model.AgentRole;
 import com.example.support.model.CustomerInquiry;
 import com.example.support.model.SubAgentResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +64,7 @@ import java.util.List;
 public class SubAgent {
 
     private static final Logger log = LoggerFactory.getLogger(SubAgent.class);
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Safety cap: prevents infinite tool loops if a tool keeps returning
@@ -147,8 +149,18 @@ public class SubAgent {
                                 role, toolUse.name(), toolUse._input());
 
                         // Step 2b: execute the tool — returns JSON string
-                        // _input() returns JsonValue (the raw JSON object Claude produced)
-                        String inputJson  = toolUse._input().toString();
+                        // _input() returns JsonValue — serialize via Jackson to get valid JSON.
+                        // JsonValue.toString() produces a Java Map representation like
+                        // {order_id=ORD-77291} which is NOT valid JSON. Jackson serializes it
+                        // correctly as {"order_id":"ORD-77291"}.
+                        String inputJson;
+                        try {
+                            inputJson = mapper.writeValueAsString(toolUse._input());
+                        } catch (Exception e) {
+                            log.warn("[{}] Failed to serialize tool input for '{}', falling back: {}",
+                                    role, toolUse.name(), e.getMessage());
+                            inputJson = "{}";
+                        }
                         String resultJson = toolExecutor.execute(toolUse.name(), inputJson);
 
                         toolResults.add(ToolResultBlockParam.builder()
