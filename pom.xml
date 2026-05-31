@@ -92,6 +92,17 @@
     </dependencies>
 
     <build>
+        <!-- Exclude Windows/Excel lock files (~$*.xlsx) from the build.
+             These are created when mock-data.xlsx is open in Excel/LibreOffice. -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>~$*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <plugins>
             <!-- Compiler: Java 21 with full language features -->
             <plugin>

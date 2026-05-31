@@ -52,6 +52,13 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+// Exclude Windows/Excel lock files (~$*.xlsx) from processResources.
+// These temporary files are created when a spreadsheet is open in Excel or
+// LibreOffice and cause Gradle's incremental build hashing to fail on Windows.
+tasks.named('processResources') {
+    exclude '~$*'
+}
+
 tasks.test {
     useJUnitPlatform()
 }
