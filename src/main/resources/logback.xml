@@ -1,38 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!--
-        EXAM NOTE — Logging Configuration Strategy:
-        ─────────────────────────────────────────────
-        We show DEBUG for our own code (com.example.support) so you can
-        watch the tool-use loop rounds in real time:
-            [FAQ] API call round 1
-            [FAQ] stop_reason=tool_use
-            [FAQ] API call round 2
-            [FAQ] stop_reason=end_turn
-            [FAQ] Resolved — confidence=0.88
-
-        All third-party libraries (SDK, OkHttp, POI) are suppressed to WARN
-        so their internal HTTP chatter doesn't drown out the agent logic.
+    <!-- ── Console appender ───────────────────────────────────────────────────
+         Time-only timestamp keeps the console readable during live runs.
+         Stack traces omitted — they appear in the file appender below.
     -->
-
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} — %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Our agent code — show DEBUG so tool-use loop rounds are visible -->
+    <!-- ── Rolling file appender ─────────────────────────────────────────────
+         Location:  logs/customer-support-agent.log  (project working directory)
+         Rolls:     daily + when file exceeds 10 MB
+         Retention: 7 days / 100 MB total cap (older files deleted automatically)
+
+         FORMAT includes:
+           - Full date+time  → correlate across sessions
+           - Padded thread   → distinguish parallel virtual-thread agents
+           - Full class name → pinpoint which class/method logged the line
+           - Full stack trace on ERROR/WARN → no more copy-pasting from terminal
+
+         TO SHARE WITH CLAUDE FOR DEBUGGING:
+           Attach or paste from:  logs/customer-support-agent.log
+           Quick error filter:    grep -E "ERROR|WARN|Exception" logs/customer-support-agent.log
+    -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/customer-support-agent.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/customer-support-agent.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <!--
+                %d{...}        full timestamp  — yyyy-MM-dd HH:mm:ss.SSS
+                [%-16thread]   thread name padded to 16 chars (virtual-51, main, etc.)
+                %-5level       log level left-aligned in 5 chars
+                %-24logger{24} logger (class) name truncated/padded to 24 chars
+                %msg           the log message
+                %n             newline
+                %ex{full}      full exception stack trace (blank when no exception)
+            -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-16thread] %-5level %-24logger{24} — %msg%n%ex{full}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ── Log levels ────────────────────────────────────────────────────────
+         DEBUG for our own code so every tool-use loop round is captured in file.
+         WARN for third-party libs so OkHttp/SDK/POI internals don't flood the log.
+    -->
     <logger name="com.example.support" level="DEBUG"/>
 
-    <!-- Suppress noisy third-party internals -->
-    <logger name="com.anthropic"             level="WARN"/>
-    <logger name="okhttp3"                   level="WARN"/>
-    <logger name="org.apache.poi"            level="WARN"/>
-    <logger name="org.apache.xmlbeans"       level="WARN"/>
+    <logger name="com.anthropic"         level="WARN"/>
+    <logger name="okhttp3"               level="WARN"/>
+    <logger name="org.apache.poi"        level="WARN"/>
+    <logger name="org.apache.xmlbeans"   level="WARN"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>

@@ -13,6 +13,9 @@ build/
 # macOS
 .DS_Store
 
+# Log files (share logs/customer-support-agent.log with Claude for debugging)
+logs/
+
 # Secrets
 .env
 *.env
