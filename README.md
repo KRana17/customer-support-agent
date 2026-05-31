@@ -454,44 +454,96 @@ Customer: "This is absolutely unacceptable! My order is wrong AND your app
 
 ## Mock Data Reference
 
-Edit `src/main/resources/mock-data.xlsx` to add your own test scenarios.
+**File location:** `src/main/resources/mock-data.xlsx` — loaded by `MCPToolExecutor` at startup via Apache POI. No code changes needed to add rows; just edit the file in Excel or LibreOffice and restart.
 
-### Sheet: `Orders`
+### Sheet 1: `Orders`
 
-| Column | Description | Example |
+| Column | Type | Allowed Values | Notes |
+|---|---|---|---|
+| `order_id` | String | e.g. `ORD-77291` | Lookup key — case-insensitive |
+| `customer_id` | String | e.g. `CUST-002` | Links order to a customer |
+| `status` | String | `SHIPPED` / `DELIVERED` / `PROCESSING` / `CANCELLED` | Returned verbatim to agent |
+| `tracking_number` | String | e.g. `TRK-88291-CA` or `N/A` | |
+| `estimated_delivery` | String | `YYYY-MM-DD` or `N/A` | |
+| `total_amount` | Number | e.g. `149.99` | USD |
+| `refund_eligible` | String | `true` or `false` | **Critical** — `initiate_refund` tool refuses if `false` |
+
+**Seeded rows:**
+
+| order_id | customer_id | status | tracking_number | estimated_delivery | total_amount | refund_eligible |
+|---|---|---|---|---|---|---|
+| ORD-77291 | CUST-002 | SHIPPED | TRK-88291-CA | 2026-06-05 | 149.99 | true |
+| ORD-55100 | CUST-003 | DELIVERED | TRK-55100-XY | 2026-05-20 | 89.50 | false |
+| ORD-10001 | CUST-001 | PROCESSING | N/A | 2026-06-10 | 49.99 | false |
+| ORD-20020 | CUST-004 | DELIVERED | TRK-20020-ZA | 2026-05-15 | 220.00 | true |
+| ORD-30030 | CUST-005 | CANCELLED | N/A | N/A | 75.00 | false |
+
+---
+
+### Sheet 2: `KnowledgeBase`
+
+| Column | Type | Notes |
 |---|---|---|
-| order_id | Unique order ID | ORD-77291 |
-| customer_id | Customer who placed it | CUST-002 |
-| status | Order lifecycle state | SHIPPED / DELIVERED / PROCESSING / CANCELLED |
-| tracking_number | Carrier tracking number | TRK-88291-CA |
-| estimated_delivery | Expected delivery date | 2026-06-05 |
-| total_amount | Order value in USD | 149.99 |
-| refund_eligible | Whether a refund can be issued | true / false |
+| `topic` | String | Unique slug, e.g. `return-policy` |
+| `keywords` | String | Comma-separated — FAQ agent scores each entry by keyword overlap with the query |
+| `answer` | String | Full response text returned to the agent |
+| `source_url` | String | Documentation link included in tool result |
+| `confidence` | Number | `0.0`–`1.0` — returned with the result; drives escalation if low |
 
-### Sheet: `KnowledgeBase`
+**Search algorithm:** `MCPToolExecutor.searchKnowledgeBase()` counts how many comma-separated keywords from each entry appear in the query. The highest-scoring entry wins. Ties go to the first match.
 
-| Column | Description | Example |
+**Seeded rows:**
+
+| topic | keywords | confidence |
 |---|---|---|
-| topic | Unique topic slug | return-policy |
-| keywords | Comma-separated search terms | return,refund,policy,days |
-| answer | The response Claude will use | Items can be returned within 30 days... |
-| source_url | Documentation link | https://help.yourstore.com/returns |
-| confidence | How confident this entry is | 0.95 |
+| return-policy | return,refund,policy,days,how many,can i return | 0.95 |
+| shipping-times | shipping,delivery,how long,when,arrive,standard,express | 0.92 |
+| payment-methods | payment,pay,credit,card,method,accept,visa,mastercard,paypal | 0.90 |
+| product-warranty | warranty,guarantee,broken,defective,damaged,replace | 0.88 |
+| account-creation | account,sign up,register,create,join,membership | 0.85 |
+| order-cancellation | cancel,cancellation,cancel order,stop order,undo order | 0.87 |
 
-**Search algorithm:** The FAQ agent calls `search_knowledge_base` with the customer's
-question. `MCPToolExecutor` scores every KB entry by counting how many of its keywords
-appear in the query, and returns the highest-scoring entry.
+---
 
-### Sheet: `Diagnostics`
+### Sheet 3: `Diagnostics`
 
-| Column | Description | Example |
-|---|---|---|
-| user_id | Customer account ID | CUST-003 |
-| account_status | Account state | ACTIVE / SUSPENDED / LOCKED |
-| last_login | ISO 8601 timestamp | 2026-05-27T09:12:00Z |
-| connectivity_test | Network test result | PASS / FAIL |
-| known_incidents | Active platform incident for this user | true / false |
-| incident_description | Human-readable incident details | App crash on checkout... |
+| Column | Type | Allowed Values | Notes |
+|---|---|---|---|
+| `user_id` | String | e.g. `CUST-003` | Must match `customerId` in the inquiry |
+| `account_status` | String | `ACTIVE` / `SUSPENDED` / `LOCKED` | Returned verbatim to agent |
+| `last_login` | String | ISO 8601 timestamp | e.g. `2026-05-27T09:12:00Z` |
+| `connectivity_test` | String | `PASS` or `FAIL` | FAIL → agent likely creates a ticket |
+| `known_incidents` | String | `true` or `false` | Signals a platform-wide issue |
+| `incident_description` | String | Free text or blank | Shown to agent when `known_incidents=true` |
+
+**Seeded rows:**
+
+| user_id | account_status | last_login | connectivity_test | known_incidents | incident_description |
+|---|---|---|---|---|---|
+| CUST-001 | ACTIVE | 2026-05-29T10:00:00Z | PASS | false | |
+| CUST-002 | ACTIVE | 2026-05-28T18:45:00Z | PASS | false | |
+| CUST-003 | ACTIVE | 2026-05-27T09:12:00Z | FAIL | true | App crash on checkout — mobile app v2.4.1, fix in v2.4.2 (ETA 2026-06-01) |
+| CUST-004 | ACTIVE | 2026-05-30T08:00:00Z | PASS | false | |
+| CUST-005 | SUSPENDED | 2026-04-10T12:30:00Z | FAIL | true | Account suspended due to chargeback dispute. Connectivity blocked pending review. |
+
+---
+
+### Adding your own scenarios
+
+1. Open `src/main/resources/mock-data.xlsx` in Excel or LibreOffice
+2. Add rows to the relevant sheet(s)
+3. Save the file
+4. Restart the app — `MCPToolExecutor` reloads on each startup
+
+### Regenerating default data
+
+If the file is deleted or corrupted:
+
+```bash
+mvn compile
+java -cp "$(mvn -q dependency:build-classpath -Dmdep.outputFile=/dev/stdout 2>/dev/null):target/classes" \
+     com.example.support.util.MockDataGenerator
+```
 
 ---
 
