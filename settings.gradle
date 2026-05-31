@@ -1,1 +1,14 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+// Foojay toolchain resolver — lets Gradle auto-discover or auto-download
+// the JDK version declared in build.gradle (java.toolchain.languageVersion = 21)
+// without requiring JAVA_HOME to be set on any platform (Mac, Windows, Linux).
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
 rootProject.name = 'customer-support-agent'
