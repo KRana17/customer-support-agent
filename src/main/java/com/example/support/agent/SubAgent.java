@@ -123,7 +123,8 @@ public class SubAgent {
             log.debug("[{}] stop_reason={}", role, stopReason);
 
             // ── CASE 1: Claude is done — extract the final text answer ──────────
-            if (stopReason == StopReason.END_TURN) {
+            // StopReason is a Kotlin value class, not a Java enum — use .equals(), not ==
+            if (StopReason.END_TURN.equals(stopReason)) {
                 String answer     = extractText(response);
                 double confidence = estimateConfidence(answer);
                 log.info("[{}] Resolved — confidence={}", role, String.format("%.2f", confidence));
@@ -131,7 +132,7 @@ public class SubAgent {
             }
 
             // ── CASE 2: Claude wants to call tools ─────────────────────────────
-            if (stopReason == StopReason.TOOL_USE) {
+            if (StopReason.TOOL_USE.equals(stopReason)) {
                 // Step 2a: collect all tool_use blocks from the response
                 List<ContentBlock> assistantContent = response.content();
                 List<ToolResultBlockParam> toolResults = new ArrayList<>();

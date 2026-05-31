@@ -104,12 +104,18 @@
             </plugin>
 
             <!-- Exec: run Main from terminal with `mvn exec:java` -->
+            <!--
+                includePluginDependencies=false + CLASSPATH env avoids the exec plugin's
+                isolated classloader, which breaks Kotlin stdlib visibility for OkHttp.
+                Using the system classloader (via exec:exec) keeps all jars on one loader.
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
                     <mainClass>com.example.support.runner.SupportAgentRunner</mainClass>
+                    <includePluginDependencies>false</includePluginDependencies>
                 </configuration>
             </plugin>
 
